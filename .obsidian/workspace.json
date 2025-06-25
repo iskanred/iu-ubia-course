@@ -1,0 +1,190 @@
+{
+  "main": {
+    "id": "cc1639c99d7ef480",
+    "type": "split",
+    "children": [
+      {
+        "id": "7f873f14a208df24",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "f240d2d84731f0ae",
+            "type": "leaf",
+            "state": {
+              "type": "image",
+              "state": {
+                "file": "lab-01/images/Pasted image 20250624160920.png"
+              },
+              "icon": "lucide-image",
+              "title": "Pasted image 20250624160920"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "3509d8527592f127",
+    "type": "split",
+    "children": [
+      {
+        "id": "96e1eb125330a9ef",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "80a4b6cd74b79cc2",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "9c04162e57718fc9",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "f6be735a9ed34203",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 200
+  },
+  "right": {
+    "id": "f1ed0388e5bd6245",
+    "type": "split",
+    "children": [
+      {
+        "id": "a07ba0e7faa439ff",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "9042d83222869ca8",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "lab-01/iu-ubia-lab-01-Iskander_Nafikov.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks for iu-ubia-lab-01-Iskander_Nafikov"
+            }
+          },
+          {
+            "id": "a774c2312de0e132",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "lab-01/iu-ubia-lab-01-Iskander_Nafikov.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links from iu-ubia-lab-01-Iskander_Nafikov"
+            }
+          },
+          {
+            "id": "1cd57ad777f8cfee",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "9021a78315594806",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "lab-01/iu-ubia-lab-01-Iskander_Nafikov.md"
+              },
+              "icon": "lucide-list",
+              "title": "Outline of iu-ubia-lab-01-Iskander_Nafikov"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false
+    }
+  },
+  "active": "80a4b6cd74b79cc2",
+  "lastOpenFiles": [
+    "lab-01/iu-ubia-lab-01-Iskander_Nafikov.md",
+    "lab-01/iu-ubia-lab-01-gns3-pxe/project-files/qemu/d0ea2e37-13bc-4ba5-9701-c84bd21308f9/ubridge.log",
+    "lab-01/images/Pasted image 20250625155911.png",
+    "lab-01/images/Pasted image 20250625155749.png",
+    "lab-01/images/Pasted image 20250625154812.png",
+    "lab-01/iu-ubia-lab-01-gns3-pxe/iu-ubia-lab-01-gns3-pxe.gns3.tmp",
+    "lab-01/images/Pasted image 20250625154637.png",
+    "lab-01/images/Pasted image 20250625001546.png",
+    "lab-01/iu-ubia-lab-01-gns3-pxe/project-files/qemu/d0ea2e37-13bc-4ba5-9701-c84bd21308f9/OVMF_VARS_4M.fd",
+    "lab-01/images/Pasted image 20250624234121.png",
+    "lab-01/images/Pasted image 20250624234014.png",
+    "lab-01/images/Pasted image 20250624233414.png",
+    "lab-01/images/Pasted image 20250624230347.png",
+    "lab-01/images/Pasted image 20250624230320.png",
+    "lab-01/iu-ubia-lab-01-gns3-pxe/project-files/qemu/c8cb06e5-ecb9-4e58-932e-d9c8f5c569a0/ubridge.log",
+    "lab-01/iu-ubia-lab-01-gns3-pxe/project-files/qemu/c4e02a36-a455-475e-a47c-a9a9de0d635b/ubridge.log",
+    "lab-01/iu-ubia-lab-01-gns3-pxe/project-files/builtin/1b0d864e-9e5f-40bd-af3d-f19e0ffc6fef/ubridge.log",
+    "lab-01/iu-ubia-lab-01-gns3-pxe/project-files/dynamips/ilt_2023010200_ppc32e",
+    "lab-01/iu-ubia-lab-01-gns3-pxe/project-files/dynamips/ilt_2023010200_ppc32j",
+    "lab-01/iu-ubia-lab-01-gns3-pxe/project-files/dynamips/ilt_2023010200_mips64e",
+    "lab-01/iu-ubia-lab-01-gns3-pxe/project-files/dynamips/ilt_2023010200_mips64j",
+    "2025-02-17.md",
+    "Pasted image 20250119210258.md"
+  ]
+}
