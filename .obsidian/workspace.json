@@ -11,12 +11,15 @@
             "id": "f240d2d84731f0ae",
             "type": "leaf",
             "state": {
-              "type": "image",
+              "type": "markdown",
               "state": {
-                "file": "lab-01/images/Pasted image 20250624160920.png"
+                "file": "lab-01/iu-ubia-lab-01-Iskander_Nafikov.md",
+                "mode": "source",
+                "source": false,
+                "backlinks": false
               },
-              "icon": "lucide-image",
-              "title": "Pasted image 20250624160920"
+              "icon": "lucide-file",
+              "title": "iu-ubia-lab-01-Iskander_Nafikov"
             }
           }
         ]
@@ -161,22 +164,22 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "80a4b6cd74b79cc2",
+  "active": "f240d2d84731f0ae",
   "lastOpenFiles": [
+    "lab-01/images/Pasted image 20250626200220.png",
     "lab-01/iu-ubia-lab-01-Iskander_Nafikov.md",
+    "lab-01/images/Pasted image 20250626113447.png",
+    "lab-01/images/Pasted image 20250626001139.png",
+    "lab-01/images/Pasted image 20250625230400.png",
+    "lab-01/images/Pasted image 20250625224934.png",
+    "lab-01/images/Pasted image 20250625224926.png",
+    "lab-01/images/Pasted image 20250625224849.png",
+    "lab-01/images/Pasted image 20250624160920.png",
     "lab-01/iu-ubia-lab-01-gns3-pxe/project-files/qemu/d0ea2e37-13bc-4ba5-9701-c84bd21308f9/ubridge.log",
     "lab-01/images/Pasted image 20250625155911.png",
     "lab-01/images/Pasted image 20250625155749.png",
-    "lab-01/images/Pasted image 20250625154812.png",
     "lab-01/iu-ubia-lab-01-gns3-pxe/iu-ubia-lab-01-gns3-pxe.gns3.tmp",
-    "lab-01/images/Pasted image 20250625154637.png",
-    "lab-01/images/Pasted image 20250625001546.png",
     "lab-01/iu-ubia-lab-01-gns3-pxe/project-files/qemu/d0ea2e37-13bc-4ba5-9701-c84bd21308f9/OVMF_VARS_4M.fd",
-    "lab-01/images/Pasted image 20250624234121.png",
-    "lab-01/images/Pasted image 20250624234014.png",
-    "lab-01/images/Pasted image 20250624233414.png",
-    "lab-01/images/Pasted image 20250624230347.png",
-    "lab-01/images/Pasted image 20250624230320.png",
     "lab-01/iu-ubia-lab-01-gns3-pxe/project-files/qemu/c8cb06e5-ecb9-4e58-932e-d9c8f5c569a0/ubridge.log",
     "lab-01/iu-ubia-lab-01-gns3-pxe/project-files/qemu/c4e02a36-a455-475e-a47c-a9a9de0d635b/ubridge.log",
     "lab-01/iu-ubia-lab-01-gns3-pxe/project-files/builtin/1b0d864e-9e5f-40bd-af3d-f19e0ffc6fef/ubridge.log",
