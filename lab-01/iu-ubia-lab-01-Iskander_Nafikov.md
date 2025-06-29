@@ -518,9 +518,10 @@ UEFI bootloader	```shell
 ## 2.
 > [!Task Description]
 > **2.** Use the **`dd`** utility to dump the Protective MBR and GPT into a file in your home directory. The dump should contain up to first partition entry (Inclusive). Note: upload the dump file to your moodle
-- For this task I computed how much bytes I need to dump for the start of the disk
-	- MBR size $=512$ bytes
-	- GPT header size = $512$ bytes
+- For this task I computed how much bytes I need to dump for the start of the disk:
+	- LBA block size $= 512$ bytes, so
+		- Protective MBR size $=512$ bytes
+		- GPT header size = $512$ bytes
 	- Partition entry size $=128$ bytes
 - Therefore, to dump the Protective MBR and GPT up to first partition entry inclusively I need to dump first $512 + 512 + 128 = 1152$ bytes
 - In order for dump to have such a precision in bytes we need to set block size to the value that would divide $1152$ without a reminder. To make things simply I just used block size $=1$
@@ -569,16 +570,57 @@ UEFI bootloader	```shell
 
 > [!Task Description]
 > **4.** Understand and fully annotate the Protective MBR, GPT header and first partition entry in the report. This means you must describe the purpose of every field, and translate all fields that have a numerical value into human-readable, decimal format. Hint: make a table to be clear. Show the byte index address.
-- 
+- I made the following table with all fields translation and description:
+
+| Field Name                   | Size (Bytes) | Byte Range (Decimal) | Hexadecimal Value                                                                                                                            | Decimal/ASCII Value    | Description                                               |
+| ---------------------------- | ------------ | -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------- | --------------------------------------------------------- |
+| **Protective MBR**           | =====        | =====<br>            | =====<br>                                                                                                                                    | =====<br>              | =====<br>                                                 |
+| **Bootloader**               | 446          | 0–445                | `00...00`                                                                                                                                    | N/A                    | Reserved for bootloader, filled with zeros.               |
+| **Partition Status**         | 1            | 446                  | `00`                                                                                                                                         | 0                      | Indicates inactive partition (for legacy purposes).       |
+| **CHS Start**                | 3            | 447–449              | `00 02 00`                                                                                                                                   | N/A                    | CHS start address (not used in GPT, but kept for legacy). |
+| **Partition Type**           | 1            | 450                  | `EE`                                                                                                                                         | N/A                    | Indicates GPT protective MBR.                             |
+| **CHS End**                  | 3            | 451–453              | `FF FF FF`                                                                                                                                   | N/A                    | CHS end address (not used in GPT, but kept for legacy).   |
+| **Start LBA**                | 4            | 454–457              | `01 00 00 00`                                                                                                                                | 1                      | First LBA of the protective partition.                    |
+| **Partition Size**           | 4            | 458–461              | `AF D2 3B 77`                                                                                                                                | 2013265920             | Size of the partition in LBA.                             |
+| **Padding**                  | 48           | 462–509              | `00...00`                                                                                                                                    | 0                      | Padding bytes in the partition table.                     |
+| **Boot Signature**           | 2            | 510–511              | `55 AA`                                                                                                                                      | N/A                    | Indicates a valid MBR.                                    |
+| **GPT Header**               | =====<br>    | =====<br>            | =====<br>                                                                                                                                    | =====<br>              | =====<br>                                                 |
+| **Signature**                | 8            | 512–519              | `45 46 49 20 50 41 52 54`                                                                                                                    | `EFI PART`             | Identifies this as a GPT header.                          |
+| **Revision**                 | 4            | 520–523              | `00 00 01 00`                                                                                                                                | N/A                    | GPT header version (1.0).                                 |
+| **Header Size**              | 4            | 524–527              | `5C 00 00 00`                                                                                                                                |                        | Size of the GPT header in bytes.                          |
+| **CRC32**                    | 4            | 528–531              | `E6 8C 15 11`                                                                                                                                | N/A                    | CRC32 checksum of the GPT header.                         |
+| **Reserved**                 | 4            | 532–535              | `00 00 00 00`                                                                                                                                | 0                      | Reserved field, must be zero.                             |
+| **Current LBA**              | 8            | 536–543              | `01 00 00 00 00 00 00 00`                                                                                                                    | 1                      | LBA of the GPT header itself.                             |
+| **Backup LBA**               | 8            | 544–551              | `AF D2 3B 77 00 00 00 00`                                                                                                                    | 2013265920             | LBA of the backup GPT header.                             |
+| **First Usable LBA**         | 8            | 552–559              | `22 00 00 00 00 00 00 00`                                                                                                                    | 34                     | First usable LBA for partitions.                          |
+| **Last Usable LBA**          | 8            | 560–567              | `8E D2 3B 77 00 00 00 00`                                                                                                                    | 2013265894             | Last usable LBA for partitions.                           |
+| **Disk GUID**                | 16           | 568–583              | `1B D2 0E DC 91 E7 A2 4B 96 CB 3A 85 F0 06 37 5E`                                                                                            | N/A                    | Unique identifier for the disk.                           |
+| **Partition Table LBA**      | 8            | 584–591              | `02 00 00 00 00 00 00 00`                                                                                                                    | 2                      | Starting LBA of the partition table.                      |
+| **Num of Partition Entries** | 4            | 592–595              | `80 00 00 00`                                                                                                                                | 128                    | Number of partition entries in the table.                 |
+| **Partition Entry Size**     | 4            | 596–599              | `80 00 00 00`                                                                                                                                | 128                    | Size of each partition entry in bytes.                    |
+| **Partition Table CRC32**    | 4            | 600–603              | `18 E2 31 2F`                                                                                                                                | N/A                    | CRC32 checksum of the partition table.                    |
+| **Reserved Space**           | 420          | 604-1023             | `00...00`                                                                                                                                    | N/A                    | Reserved area of zeros to fill the entire logical block   |
+| **1st Partition Entry**      | =====<br>    | =====<br>            | =====<br>                                                                                                                                    | =====<br>              | =====<br>                                                 |
+| **Partition Type GUID**      | 16           | 1024–1039            | `28 73 2A C1 1F F8 D2 11 BA 4B 00 A0 C9 3E C9 3B`                                                                                            | N/A                    | Type of the partition (e.g., basic data).                 |
+| **Unique Partition GUID**    | 16           | 1040–1055            | `6C C3 82 E8 69 1E BC 44 96 E5 BD DE 03 1F 35 AB`                                                                                            | N/A                    | Unique identifier for the partition.                      |
+| **First LBA**                | 8            | 1056–1063            | `00 08 00 00 00 00 00 00`                                                                                                                    | 2048                   | First LBA of the partition.                               |
+| **Last LBA**                 | 8            | 1064–1071            | `FF 27 03 00 00 00 00 00`                                                                                                                    | 2047999                | Last LBA of the partition.                                |
+| **Attributes**               | 8            | 1072–1079            | `00 00 00 00 00 00 00 80`                                                                                                                    | N/A                    | Partition attributes (e.g., bootable flag).               |
+| **Partition Name**           | 72           | 1080–1151            | Unicode string:<br>`80 42 00 61 00 73 00 69 00 63 00 20 00 64 00 61 00 74 00 61 00 20 00 70 00 61 00 72 00 74 00 69 00 74 00 69 00 6f 00 6e` | `Basic data partition` | Name of the partition, stored in UTF-16LE.                |
 ### 4.1
 > [!Task Description]
 > **4.1.** At what byte index from the start of the disk do the partition table entries start?
-- 
+- In **MBR** at the index $446$ ($447$-th byte). There can be 4 partitions, each with a length of 16 bytes.
+- In **GPT** it depends on the LBA block size. Both Protective MBR and GPT Header should occupy the whole block and start from LBA-0 and LBA-1 correspondingly. Therefore, the partition table must start from LBA-2, so the exact index depends on the size of LBA block. For example, in my case the size is 512, so the index is $512 + 512 = 1024$ ($1025$-th byte).
 ### 4.2
 
 > [!Task Description]
 > **4.2.** At what byte index would the partition table start if your server had a so-called "4K native" (4Kn) disk?
-- 
+- In GPT scheme the following rules are applied:
+	- Protective MBR occupies the whole LBA-0
+	- GPT Header occupies the whole LBA-1
+	- Partition table start from LBA-2
+- Therefore, for LBA block size $=4K=4096$ bytes the index would be $8192$ ($8193$-th byte).
 ## 5.
 > [!Task Description]
 > **5.** Name two differences between primary and logical partitions in an MBR partitioning scheme.

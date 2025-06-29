@@ -1,5 +1,11 @@
 {
   "readableLineLength": false,
   "showLineNumber": false,
-  "vimMode": true
+  "vimMode": true,
+  "pdfExportSettings": {
+    "pageSize": "Letter",
+    "landscape": false,
+    "margin": "2",
+    "downscalePercent": 80
+  }
 }
