@@ -463,8 +463,28 @@ UEFI bootloader	```shell
 ### 3.3
 > [!Task Description]
 > **3.3.** Provide a simple practice.
-- 
-
+- First, I explored names of disks and partitions
+	```shell
+	lsblk
+	```
+	![[Pasted image 20250629150416.png]]
+- Then I checked information about partitions on my `/dev/nvme0n1` disk using `gdisk` `-l` option
+	![[Pasted image 20250629151117.png]]
+- Above we can see that our partitioning scheme is in fact GPT and it contains protective MBR
+- Then I ran `gdisk` in interactive mode and requested `help`
+	![[Pasted image 20250629151944.png]]
+- So, with `p` command in interactive menu I received the same information
+	![[Pasted image 20250629152031.png]]
+- We see that are 5 partitions in total, so I requested detail information about the first one
+	![[Pasted image 20250629152143.png]]
+- The 1st partition is EFY system partition which is 100MiB of size. 
+- Afterwards, I verified integrity of the GPT using `v` command and found no problems
+	![[Pasted image 20250629152428.png]]
+- Using `o` command I checked protective MBR info
+	![[Pasted image 20250629152809.png]]
+- We see that the disk size is `2000409264`, while protective MBR partition is `2000409263` sectors of length, so it indeed includes the whole disk if disk size if less than 2Tb
+- Finally, I exited `gdisk` using `q` command which does not save any modifications
+	![[Pasted image 20250629153523.png]]
 ## 4.
 > [!Task Description]
 > **4.** What is a Protective MBR and why is it in the GPT?
@@ -493,23 +513,62 @@ UEFI bootloader	```shell
 ## 1.
 > [!Task Description]
 > **1.** Verify the GPT schema of your Ubuntu machine.
-- 
-
+- I did it with `gdisk` utility
+	![[Pasted image 20250629153937.png]]
 ## 2.
 > [!Task Description]
 > **2.** Use the **`dd`** utility to dump the Protective MBR and GPT into a file in your home directory. The dump should contain up to first partition entry (Inclusive). Note: upload the dump file to your moodle
-- 
-
+- For this task I computed how much bytes I need to dump for the start of the disk
+	- MBR size $=512$ bytes
+	- GPT header size = $512$ bytes
+	- Partition entry size $=128$ bytes
+- Therefore, to dump the Protective MBR and GPT up to first partition entry inclusively I need to dump first $512 + 512 + 128 = 1152$ bytes
+- In order for dump to have such a precision in bytes we need to set block size to the value that would divide $1152$ without a reminder. To make things simply I just used block size $=1$
+- So, using `dd` I made a dump to `~/mbr_gpt_dump.bin` file. The dump size is $1152$ blocks of size $1$ byte.
+	```shell
+	sudo dd if=/dev/nvme0n1 of=mbr_gpt_dump.bin bs=1 count=1152
+	```
+	![[Pasted image 20250629160546.png]]
 ## 3.
 
 > [!Task Description]
 > **3.** Load the dump file into a **hex dump utility** (e.g. 010 editor) to look at the raw data in the file.
-- 
-
+- I verified the dump using `hexdump` utility
+	```shell
+	hexdump -C ~/mbr_gpt_dump.bin
+	```
+	![[Pasted image 20250629160754.png]]
+- We see the the first partition entry has its name `Basic data partition` which we have already seen in `gdisk` utility
+- Below is the dump in hexadecimal format
+	```
+	00000000  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+	*
+	000001c0  02 00 ee ff ff ff 01 00  00 00 af d2 3b 77 00 00  |............;w..|
+	000001d0  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+	*
+	000001f0  00 00 00 00 00 00 00 00  00 00 00 00 00 00 55 aa  |..............U.|
+	00000200  45 46 49 20 50 41 52 54  00 00 01 00 5c 00 00 00  |EFI PART....\...|
+	00000210  e6 8c 15 11 00 00 00 00  01 00 00 00 00 00 00 00  |................|
+	00000220  af d2 3b 77 00 00 00 00  22 00 00 00 00 00 00 00  |..;w....".......|
+	00000230  8e d2 3b 77 00 00 00 00  1b d2 0e dc 91 e7 a2 4b  |..;w...........K|
+	00000240  96 cb 3a 85 f0 06 37 5e  02 00 00 00 00 00 00 00  |..:...7^........|
+	00000250  80 00 00 00 80 00 00 00  18 e2 31 2f 00 00 00 00  |..........1/....|
+	00000260  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+	*
+	00000400  28 73 2a c1 1f f8 d2 11  ba 4b 00 a0 c9 3e c9 3b  |(s*......K...>.;|
+	00000410  6c c3 82 e8 69 1e bc 44  96 e5 bd de 03 1f 35 ab  |l...i..D......5.|
+	00000420  00 08 00 00 00 00 00 00  ff 27 03 00 00 00 00 00  |.........'......|
+	00000430  00 00 00 00 00 00 00 80  42 00 61 00 73 00 69 00  |........B.a.s.i.|
+	00000440  63 00 20 00 64 00 61 00  74 00 61 00 20 00 70 00  |c. .d.a.t.a. .p.|
+	00000450  61 00 72 00 74 00 69 00  74 00 69 00 6f 00 6e 00  |a.r.t.i.t.i.o.n.|
+	00000460  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+	*
+	00000480
+	```
 ## 4.
 
 > [!Task Description]
-> **4.** Understand and fully annotate the Protective MBR, GPT header and first partition entry in the report. This means you must describe the purpose of every field, and translate all fields that have a numerical value into human-readable, decimal format. Hint: make a table to be clear. Show the byte indess address.
+> **4.** Understand and fully annotate the Protective MBR, GPT header and first partition entry in the report. This means you must describe the purpose of every field, and translate all fields that have a numerical value into human-readable, decimal format. Hint: make a table to be clear. Show the byte index address.
 - 
 ### 4.1
 > [!Task Description]
@@ -523,4 +582,9 @@ UEFI bootloader	```shell
 ## 5.
 > [!Task Description]
 > **5.** Name two differences between primary and logical partitions in an MBR partitioning scheme.
-- 
+- **Bootability**: 
+	- A **primary** partition can be marked as active, making it bootable.
+	- **Logical** partitions cannot be marked as active, therefore, cannot directly be booted from.
+- **Number of partitions allowed**:
+	- The MBR partitioning scheme allows for a maximum of 4 **primary** partitions on a single hard drive.
+	- **Logical** partitions are created within an extended partition to bypass the limitation on the number of primary partitions. One can have multiple logical partitions inside a single extended partition, allowing for up to 127 logical partitions.
